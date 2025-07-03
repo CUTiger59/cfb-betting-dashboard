@@ -1,5 +1,6 @@
 # streamlit_app.py
 import streamlit as st
+st.write("✅ App is running up to this point")
 import pandas as pd
 import numpy as np
 import requests
