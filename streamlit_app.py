@@ -16,9 +16,21 @@ try:
     url = "https://api.collegefootballdata.com/games"
     params = {"year": 2025, "seasonType": "regular", "week": 1}
     r = requests.get(url, headers=HEADERS, params=params)
-    games = pd.DataFrame(r.json())
-    st.success(f"✅ Loaded {len(games)} games")
-    st.dataframe(games[['home_team', 'away_team', 'start_date']].head())
+    raw_data = r.json()
+
+    if isinstance(raw_data, list) and len(raw_data) > 0:
+        games = pd.DataFrame(raw_data)
+        st.success(f"✅ Loaded {len(games)} games")
+
+        st.write("🔎 Available columns:", games.columns.tolist())
+        preview_cols = [col for col in ['home_team', 'away_team', 'start_date'] if col in games.columns]
+        if preview_cols:
+            st.dataframe(games[preview_cols].head())
+        else:
+            st.warning("🤷 Expected columns not found. Here's the raw data:")
+            st.json(raw_data[:1])
+    else:
+        st.warning("🤷 No games returned from CFBD API.")
 except Exception as e:
     st.error(f"❌ Failed to load CFBD games: {e}")
 
