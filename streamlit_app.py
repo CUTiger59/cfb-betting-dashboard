@@ -6,7 +6,7 @@ import requests
 from datetime import datetime
 
 # ------------------------- CONFIG ----------------------------
-API_KEY = "d4ZJfjl/2sE0v10T+AuY+A+3MzSQHk3i4QRUj+WDppPbpIpyymZi3xK9L1JiFP3"
+API_KEY = "+d4ZJfjl/2sE0v10T+AuY+A+3MzSQHk3i4QRUj+WDppPbpIpyymZi3xK9L1JiFP3"
 ODDS_API_KEY = "5b348e3a3cbe99df17bd82b117a03b93"
 HEADERS = {"Authorization": f"Bearer {API_KEY}"}
 
