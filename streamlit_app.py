@@ -22,17 +22,18 @@ try:
         games = pd.DataFrame(raw_data)
         st.success(f"✅ Loaded {len(games)} games")
 
+        # Show column names
         st.write("🔎 Available columns:", games.columns.tolist())
-        preview_cols = [col for col in ['home_team', 'away_team', 'start_date'] if col in games.columns]
-        if preview_cols:
-            st.dataframe(games[preview_cols].head())
-        else:
-            st.warning("🤷 Expected columns not found. Here's the raw data:")
-            st.json(raw_data[:1])
+
+        # Safely preview key fields
+        preview_cols = ['homeTeam', 'awayTeam', 'startDate', 'conferenceGame', 'venue']
+        preview_cols = [col for col in preview_cols if col in games.columns]
+        st.dataframe(games[preview_cols].head())
     else:
         st.warning("🤷 No games returned from CFBD API.")
 except Exception as e:
     st.error(f"❌ Failed to load CFBD games: {e}")
+
 
 # ---- Step 2: Get betting odds ----
 st.write("⏳ Fetching odds data...")
